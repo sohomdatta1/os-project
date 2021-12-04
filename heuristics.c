@@ -129,6 +129,11 @@ void handle_mkdirat(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_
 void handle_open(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_notif_resp * res) {
     hfp(0,"The process wants to open the following file: %s");
 }
+
+void handle_openat(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_notif_resp * res) {
+    hfp(0,"The process wants to open the following file: %s");
+}
+
 void handle_stat(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_notif_resp * res) {
     hfp(0,"The process wants to get the file status of the following file: %s");
 }
@@ -184,10 +189,15 @@ void handle_execve(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_n
             res->val = 0;
             no_of_execve_calls = 1;
         } else {
-            res->id = req->id;
-            res->error = 0;
-            res->flags = 0;
-            res->val = -EPERM;
+            if ( gtk_confirm("The process is trying to create multiple child processes") == true ) {
+                res->id = req->id;
+                res->flags = SECCOMP_USER_NOTIF_FLAG_CONTINUE;
+                res->val = 0;
+            } else {
+                res->id = req->id;
+                res->flags = 0;
+                res->val = -EPERM;
+            }
         }
 }
 

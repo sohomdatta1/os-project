@@ -8,6 +8,7 @@ void handle_file_permissions_multiple(int argvalue1, int argvalue2, char * fmt_t
 void handle_mkdir(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_notif_resp * res);
 void handle_mkdirat(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_notif_resp * res);
 void handle_open(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_notif_resp * res);
+void handle_openat(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_notif_resp * res);
 void handle_stat(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_notif_resp * res);
 void handle_lstat(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_notif_resp * res);
 void handle_unlink(int proc_mem_fd, struct seccomp_notif * req, struct seccomp_notif_resp * res);
